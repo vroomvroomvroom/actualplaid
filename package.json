@@ -6,7 +6,7 @@
 	"bin": {
 		"actualplaid": "cli.js"
 	},
-	"author": "Luke Herrington <lherrington100@gmail.com>",
+	"author": "Thies <git@thies.dev>",
 	"license": "MIT",
 	"dependencies": {
 		"@actual-app/api": "^6.2.1",

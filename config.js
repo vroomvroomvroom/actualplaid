@@ -20,6 +20,8 @@ const PLAID_PRODUCTS = (process.env.PLAID_PRODUCTS || "transactions").split(
 const PLAID_COUNTRY_CODES = (process.env.PLAID_COUNTRY_CODES || "US").split(",");
 const PLAID_LANGUAGE = (process.env.PLAID_LANGUAGE || "en")
 
+const APP_CWD_OVERRIDE = process.env.APP_CWD_OVERRIDE || "";
+
 function getAppConfigFromEnv() {
     const appConfig = {
         APP_PORT,
@@ -30,7 +32,7 @@ function getAppConfigFromEnv() {
         PLAID_LANGUAGE,
         PLAID_COUNTRY_CODES,
         ACTUAL_SERVER_URL,
-        ACTUAL_SERVER_PASSWORD
+        ACTUAL_SERVER_PASSWORD,
     }
 
     // Assert that all required environment variables are set
@@ -48,9 +50,15 @@ function getConf(username) {
     const appConfig = getAppConfigFromEnv();
     const key = `${username}_${appConfig.PLAID_ENV}`;
 
-    const tmp = new Conf({
-        configName: key
-    });
+    const configForConf = {
+        configName: key,
+        
+    }
+    if (APP_CWD_OVERRIDE) {
+        configForConf.cwd = APP_CWD_OVERRIDE;
+    }
+
+    const tmp = new Conf(configForConf);
     tmp.set("user", key);
     return tmp;
 }
