@@ -63,7 +63,7 @@ function getConf(username) {
 
     if (APP_IS_READONLY) {
         tmp.set = () => {
-            console.warn("Attempted to set config in read-only mode, changes are not saved")
+            console.warn("Attempted to set config in read-only mode, changes are not saved", arguments)
         }
     }
 

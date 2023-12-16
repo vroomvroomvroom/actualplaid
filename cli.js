@@ -333,6 +333,8 @@ module.exports = async (command, flags) => {
 
     } else if (command === "ls") {
         printSyncedAccounts();
+    } else {
+        console.log(`Unknown command: ${command}`);
     }
     process.exit();
 };
