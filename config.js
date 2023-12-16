@@ -21,6 +21,7 @@ const PLAID_COUNTRY_CODES = (process.env.PLAID_COUNTRY_CODES || "US").split(",")
 const PLAID_LANGUAGE = (process.env.PLAID_LANGUAGE || "en")
 
 const APP_CWD_OVERRIDE = process.env.APP_CWD_OVERRIDE || "";
+const APP_IS_READONLY = process.env.APP_IS_READONLY || false;
 
 function getAppConfigFromEnv() {
     const appConfig = {
@@ -59,6 +60,13 @@ function getConf(username) {
     }
 
     const tmp = new Conf(configForConf);
+
+    if (APP_IS_READONLY) {
+        tmp.set = () => {
+            console.warn("Attempted to set config in read-only mode, changes are not saved")
+        }
+    }
+
     tmp.set("user", key);
     return tmp;
 }
