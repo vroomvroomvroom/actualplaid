@@ -335,6 +335,7 @@ module.exports = async (command, flags) => {
         printSyncedAccounts();
     } else {
         console.log(`Unknown command: ${command}`);
+        process.exit(1);
     }
     process.exit();
 };
